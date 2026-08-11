@@ -89,19 +89,13 @@ h1 .thin{display:block;font-weight:600;color:var(--muted);font-size:.4em;letter-
 .logitem .x{color:var(--prio);font-weight:800;cursor:pointer;padding:2px 8px;font-size:16px}
 .empty{color:var(--muted);font-size:13.5px;text-align:center;padding:16px 0}
 footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:30px;line-height:1.7}
-/* modal */
-.modal{position:fixed;inset:0;background:rgba(15,17,22,.72);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
-.modal.open{display:flex}
-.modal-card{background:var(--card);border-radius:20px;max-width:440px;width:100%;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3)}
-.modal-head{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:1px solid var(--line)}
-.modal-head h4{font-family:'Archivo',sans-serif;font-weight:800;font-size:17px}
-.modal-close{background:none;border:none;font-size:24px;color:var(--muted);cursor:pointer;line-height:1}
-.modal-body{padding:18px;text-align:center}
-.modal-body img{width:100%;max-width:360px;border-radius:12px;background:#f2f2f0}
-.modal-msg{color:var(--muted);font-size:14px;padding:24px 8px}
-.spinner{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:24px auto}
+/* gif inline por ejercicio */
+.ex-gif{margin-top:12px;border-radius:12px;background:var(--paper);text-align:center;overflow:hidden}
+.ex-gif img{display:block;max-width:100%;max-height:240px;margin:0 auto;background:#f2f2f0}
+.ex-gif .spinner{width:26px;height:26px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:22px auto}
 @keyframes spin{to{transform:rotate(360deg)}}
-.modal-yt{display:inline-flex;margin-top:16px;text-decoration:none;font-family:'Archivo',sans-serif;font-weight:700;font-size:14px;color:#fff;background:var(--accent);padding:11px 18px;border-radius:11px}
+.gif-msg{color:var(--muted);font-size:13.5px;padding:18px 12px}
+.gif-yt{display:inline-flex;margin:0 0 16px;text-decoration:none;font-family:'Archivo',sans-serif;font-weight:700;font-size:13.5px;color:#fff;background:var(--accent);padding:9px 16px;border-radius:11px}
 
 /* ===== marca del día de HOY ===== */
 .tab.today{position:relative}

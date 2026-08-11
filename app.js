@@ -56,6 +56,7 @@ function renderDay(id){
           ${showSwap?`<button class="btn" data-swap="${id}" data-exi="${i}">Cambiar ${swap}</button>`:''}
         </div>
       </div>
+      <div class="ex-gif" id="gif_${id}_${i}" hidden></div>
       <div class="sets">${dots}</div>
     </div>`;
   });
@@ -93,7 +94,7 @@ document.addEventListener("click",function(ev){
     document.getElementById("nm_"+day+"_"+i).textContent=curAlt(day,i).n;return;
   }
   const gf=ev.target.closest("[data-gif]");
-  if(gf){openGif(gf.dataset.gif,+gf.dataset.exi);return;}
+  if(gf){toggleGif(gf.dataset.gif,+gf.dataset.exi);return;}
 });
 
 /* ---- block toggle ---- */
@@ -103,7 +104,7 @@ function setBlock(b){
   renderAllDays();
 }
 
-/* ---- GIF preview modal (ExerciseDB + fallback) ---- */
+/* ---- GIF inline por carta (ExerciseDB + fallback a YouTube) ---- */
 const gifCache={};
 async function fetchGif(edb){
   if(gifCache[edb]!==undefined) return gifCache[edb];
@@ -115,25 +116,23 @@ async function fetchGif(edb){
     gifCache[edb]=url;return url;
   }catch(e){gifCache[edb]=null;return null;}
 }
-async function openGif(day,i){
+async function toggleGif(day,i){
+  const el=document.getElementById(`gif_${day}_${i}`);
+  if(!el.hidden){el.hidden=true;return;}
   const a=curAlt(day,i);
-  const m=document.getElementById("modal");
-  document.getElementById("mTitle").textContent=a.n;
-  document.getElementById("mBody").innerHTML='<div class="spinner"></div>';
-  m.classList.add("open");
+  el.hidden=false;
+  el.innerHTML='<div class="spinner"></div>';
   const url=await fetchGif(a.e);
   if(url){
-    document.getElementById("mBody").innerHTML=`<img src="${url}" alt="${a.n}" onerror="this.parentNode.innerHTML=fallbackHTML('${encodeURIComponent(a.n)}')"><a class="modal-yt" href="${yt(a.n)}" target="_blank" rel="noopener">Ver en video ▶</a>`;
+    el.innerHTML=`<img src="${url}" alt="${a.n}" loading="lazy" onerror="this.parentNode.innerHTML=fallbackHTML('${encodeURIComponent(a.n)}')">`;
   }else{
-    document.getElementById("mBody").innerHTML=fallbackHTML(encodeURIComponent(a.n));
+    el.innerHTML=fallbackHTML(encodeURIComponent(a.n));
   }
 }
 function fallbackHTML(encName){
   const name=decodeURIComponent(encName);
-  return `<div class="modal-msg">No se encontró el GIF de este ejercicio.<br>Mientras tanto, puedes ver la técnica en video.</div><a class="modal-yt" href="${yt(name)}" target="_blank" rel="noopener">Ver en video ▶</a>`;
+  return `<div class="gif-msg">No se encontró el GIF de este ejercicio.</div><a class="gif-yt" href="${yt(name)}" target="_blank" rel="noopener">Ver en video ▶</a>`;
 }
-document.getElementById("mClose").addEventListener("click",()=>document.getElementById("modal").classList.remove("open"));
-document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")e.currentTarget.classList.remove("open");});
 
 /* ====== TIMER DE DESCANSO (sobrevive bloqueo de pantalla) ====== */
 /* Cuenta por timestamp: guarda cuándo TERMINA y compara con Date.now().
