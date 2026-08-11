@@ -106,11 +106,9 @@ function setBlock(b){
 /* ---- GIF preview modal (ExerciseDB + fallback) ---- */
 const gifCache={};
 async function fetchGif(edb){
-  if(!CONFIG.RAPIDAPI_KEY) return null;
   if(gifCache[edb]!==undefined) return gifCache[edb];
   try{
-    const r=await fetch(`https://${CONFIG.EDB_HOST}/exercises/name/${encodeURIComponent(edb)}?limit=1`,
-      {headers:{'X-RapidAPI-Key':CONFIG.RAPIDAPI_KEY,'X-RapidAPI-Host':CONFIG.EDB_HOST}});
+    const r=await fetch(`/api/exercise?name=${encodeURIComponent(edb)}`);
     const data=await r.json();
     const url=(Array.isArray(data)&&data[0]&&data[0].gifUrl)?data[0].gifUrl:null;
     gifCache[edb]=url;return url;
@@ -131,8 +129,7 @@ async function openGif(day,i){
 }
 function fallbackHTML(encName){
   const name=decodeURIComponent(encName);
-  const noKey=!CONFIG.RAPIDAPI_KEY;
-  return `<div class="modal-msg">${noKey?"Agrega tu API key de ExerciseDB en <b>config.js</b> para ver el GIF aquí.":"No se encontró el GIF de este ejercicio."}<br>Mientras tanto, puedes ver la técnica en video.</div><a class="modal-yt" href="${yt(name)}" target="_blank" rel="noopener">Ver en video ▶</a>`;
+  return `<div class="modal-msg">No se encontró el GIF de este ejercicio.<br>Mientras tanto, puedes ver la técnica en video.</div><a class="modal-yt" href="${yt(name)}" target="_blank" rel="noopener">Ver en video ▶</a>`;
 }
 document.getElementById("mClose").addEventListener("click",()=>document.getElementById("modal").classList.remove("open"));
 document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")e.currentTarget.classList.remove("open");});
