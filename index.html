@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan de Entrenamiento — Definición</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Plan · Adam</div>
+    <h1>Definición<span class="thin">Bajar grasa y marcar abdomen conservando músculo · Upper / Lower · 4 días + cardio</span></h1>
+    <div class="blockbar" id="blockBar">
+      <button data-block="A">Bloque A<br>Base</button>
+      <button data-block="B">Bloque B<br>Variación</button>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-p="semana">Semana</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="d1">Día 1</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="d2">Día 2</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="d3">Día 3</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="d4">Día 4</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="cardio">Cardio</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="comida">Comida</button>
+  </nav>
+
+  <section class="panel active" id="semana">
+    <div class="day-head"><div class="day-num">Vista general</div><div class="day-title">Tu semana</div><div class="day-sub">Alterna Bloque A y Bloque B cada semana. El cardio va después de las pesas.</div></div>
+    <div class="week" id="weekGrid"></div>
+    <div class="note">Marca cada serie tocando los cuadros · <strong>Ver ▶</strong> muestra el GIF/video · <strong>Cambiar ⇄</strong> te da una variante del ejercicio. Todo se guarda solo.</div>
+  </section>
+
+  <section class="panel" id="d1"></section>
+  <section class="panel" id="d2"></section>
+  <section class="panel" id="d3"></section>
+  <section class="panel" id="d4"></section>
+
+  <section class="panel" id="cardio">
+    <div class="day-head"><div class="day-num">Quemar grasa</div><div class="day-title">Cardio y pasos</div></div>
+    <div class="info"><h3>LISS · baja intensidad</h3><p>Caminadora en inclinación, bici o caminar rápido. <strong>30 min</strong> a un ritmo donde todavía puedas hablar. <span class="k">2–3 sesiones/semana</span> (mié y sáb, y una 3ª opcional el domingo si te recuperas bien).</p></div>
+    <div class="info"><h3>HIIT · opcional</h3><p>Cambia un LISS por <strong>20 min</strong> de intervalos: 30 seg fuerte / 90 seg suave. Máximo 1–2 por semana.</p></div>
+    <div class="info"><h3>Pasos diarios · tu herramienta #1</h3><p>Apunta a <span class="k">8,000–10,000 al día</span>. A lo largo de la semana quema más grasa que cualquier sesión suelta. Para acelerar, sube a 12k.</p></div>
+    <div class="info"><h3>¿El cardio "quema" la grasa?</h3><p>Ayuda, pero la grasa se pierde por <strong>déficit calórico</strong>. El cardio agranda el déficit — la comida es la palanca más fuerte.</p></div>
+  </section>
+
+  <section class="panel" id="comida">
+    <div class="day-head"><div class="day-num">Déficit ligero · Hoy</div><div class="day-title">Comida</div><div class="day-sub">Toca lo que comes para llevar la cuenta. Se reinicia solo cada día.</div></div>
+    <div class="dash">
+      <h3>Consumido hoy</h3>
+      <div class="metric"><div class="metric-top"><span class="metric-lbl">Proteína</span><span class="metric-val" id="pVal">0<small> / 150 g</small></span></div><div class="mbar p"><i id="pBar"></i></div></div>
+      <div class="metric"><div class="metric-top"><span class="metric-lbl">Calorías</span><span class="metric-val" id="cVal">0<small> / 2040</small></span></div><div class="mbar c"><i id="cBar"></i></div></div>
+    </div>
+    <div class="info">
+      <h3>Agregar alimento</h3>
+      <div class="foods" id="foodBtns"></div>
+      <div class="manual"><input id="mName" placeholder="Otro (opcional)"><input id="mPro" type="number" inputmode="numeric" placeholder="Prot g"><input id="mCal" type="number" inputmode="numeric" placeholder="Cal"><button class="addbtn" id="mAdd">+</button></div>
+      <div class="logged" id="logged"></div>
+    </div>
+    <div class="info"><h3>Cómo repartir el día (~2,040 cal · 150 g prot)</h3>
+      <p><strong>Desayuno</strong> · ~30 g — avena + 2 huevos, o yogur griego con fruta.</p>
+      <p><strong>Almuerzo</strong> · ~45 g — proteína (palma) + carbo (puño) + medio plato de vegetales.</p>
+      <p><strong>Merienda</strong> · ~35 g — shake + fruta, o yogur griego.</p>
+      <p><strong>Cena</strong> · ~40 g — proteína + vegetales + carbo moderado.</p>
+    </div>
+    <div class="info"><h3>Regla de la mano (sin pesar nada)</h3>
+      <p><strong>Palma</strong> = proteína por comida · <strong>Puño</strong> = carbohidrato · <strong>Medio plato</strong> = vegetales · <strong>Pulgar</strong> = grasas.</p>
+    </div>
+  </section>
+
+  <footer>Doble progresión: al llegar al tope de reps en todas las series, sube el peso.<br>Deja 1–2 reps en la recámara. Descansa 2–3 min en compuestos, 60–90 seg en aislamiento.</footer>
+</div>
+
+<div class="rest-bar" id="restBar" hidden>
+  <div class="rest-idle" id="restIdle">
+    <span class="rest-lbl">Descanso</span>
+    <button class="rest-preset" data-sec="60">60s</button>
+    <button class="rest-preset" data-sec="90">90s</button>
+    <button class="rest-preset" data-sec="120">2:00</button>
+    <button class="rest-preset" data-sec="180">3:00</button>
+  </div>
+  <div class="rest-run" id="restRun" hidden>
+    <button class="rest-add" id="restAdd">+30s</button>
+    <div class="rest-time" id="restTime">0:00</div>
+    <button class="rest-toggle" id="restToggle">Pausa</button>
+    <button class="rest-stop" id="restStop">✕</button>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <div class="modal-head"><h4 id="mTitle">Ejercicio</h4><button class="modal-close" id="mClose">×</button></div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
