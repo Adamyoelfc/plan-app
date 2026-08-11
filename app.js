@@ -102,6 +102,7 @@ function setBlock(b){
   curBlock=b;save("wp_block",b);
   document.querySelectorAll(".blockbar button").forEach(x=>x.classList.toggle("on",x.dataset.block===b));
   renderAllDays();
+  if(curPanel)autoLoadDayGifs(curPanel);
 }
 
 /* ---- GIF inline por carta (ExerciseDB + fallback a YouTube) ---- */
@@ -116,9 +117,9 @@ async function fetchGif(edb){
     gifCache[edb]=url;return url;
   }catch(e){gifCache[edb]=null;return null;}
 }
-async function toggleGif(day,i){
+async function loadGif(day,i){
   const el=document.getElementById(`gif_${day}_${i}`);
-  if(el.dataset.filled){el.innerHTML='';delete el.dataset.filled;return;}
+  if(!el||el.dataset.filled)return;
   const a=curAlt(day,i);
   el.dataset.filled="1";
   el.innerHTML='<div class="spinner"></div>';
@@ -129,9 +130,20 @@ async function toggleGif(day,i){
     el.innerHTML=fallbackHTML(encodeURIComponent(a.n));
   }
 }
+function toggleGif(day,i){
+  const el=document.getElementById(`gif_${day}_${i}`);
+  if(el.dataset.filled){el.innerHTML='';delete el.dataset.filled;return;}
+  loadGif(day,i);
+}
 function fallbackHTML(encName){
   const name=decodeURIComponent(encName);
   return `<a class="gif-yt" href="${yt(name)}" target="_blank" rel="noopener" title="Ver en video">▶</a>`;
+}
+/* precarga automática de los GIF del día que se está viendo (no de los 4 a la vez,
+   para no gastar de golpe la cuota mensual de RapidAPI) */
+function autoLoadDayGifs(pid){
+  if(!/^d[1-4]$/.test(pid))return;
+  BLOCKS[curBlock][pid].ex.forEach((e,i)=>loadGif(pid,i));
 }
 
 /* ====== TIMER DE DESCANSO (sobrevive bloqueo de pantalla) ====== */
@@ -263,10 +275,13 @@ document.getElementById("mAdd").addEventListener("click",function(){
 
 /* ---- tabs ---- */
 const tabs=document.querySelectorAll('.tab');
+let curPanel=null;
 function activate(pid){
+  curPanel=pid;
   tabs.forEach(x=>x.setAttribute('aria-selected', x.dataset.p===pid?'true':'false'));
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===pid));
   updateRestBar(pid);
+  autoLoadDayGifs(pid);
 }
 tabs.forEach(t=>t.addEventListener('click',()=>{
   activate(t.dataset.p);
