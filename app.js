@@ -110,7 +110,8 @@ async function fetchGif(edb){
   try{
     const r=await fetch(`/api/exercise?name=${encodeURIComponent(edb)}`);
     const data=await r.json();
-    const url=(Array.isArray(data)&&data[0]&&data[0].gifUrl)?data[0].gifUrl:null;
+    const id=(Array.isArray(data)&&data[0]&&data[0].id)?data[0].id:null;
+    const url=id?`/api/exercise-image?id=${encodeURIComponent(id)}`:null;
     gifCache[edb]=url;return url;
   }catch(e){gifCache[edb]=null;return null;}
 }
