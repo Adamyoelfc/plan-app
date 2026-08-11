@@ -51,12 +51,12 @@ function renderDay(id){
           <div class="ex-name" id="nm_${id}_${i}">${a.n}</div>
           <div class="ex-meta"><span class="badge">${e.sets} × ${e.reps}</span>${tag}</div>
         </div>
+        <div class="ex-gif" id="gif_${id}_${i}" data-gif="${id}" data-exi="${i}"></div>
         <div class="ex-actions">
           <button class="btn" data-gif="${id}" data-exi="${i}">Ver ${play}</button>
           ${showSwap?`<button class="btn" data-swap="${id}" data-exi="${i}">Cambiar ${swap}</button>`:''}
         </div>
       </div>
-      <div class="ex-gif" id="gif_${id}_${i}" hidden></div>
       <div class="sets">${dots}</div>
     </div>`;
   });
@@ -118,9 +118,9 @@ async function fetchGif(edb){
 }
 async function toggleGif(day,i){
   const el=document.getElementById(`gif_${day}_${i}`);
-  if(!el.hidden){el.hidden=true;return;}
+  if(el.dataset.filled){el.innerHTML='';delete el.dataset.filled;return;}
   const a=curAlt(day,i);
-  el.hidden=false;
+  el.dataset.filled="1";
   el.innerHTML='<div class="spinner"></div>';
   const url=await fetchGif(a.e);
   if(url){
@@ -131,7 +131,7 @@ async function toggleGif(day,i){
 }
 function fallbackHTML(encName){
   const name=decodeURIComponent(encName);
-  return `<div class="gif-msg">No se encontró el GIF de este ejercicio.</div><a class="gif-yt" href="${yt(name)}" target="_blank" rel="noopener">Ver en video ▶</a>`;
+  return `<a class="gif-yt" href="${yt(name)}" target="_blank" rel="noopener" title="Ver en video">▶</a>`;
 }
 
 /* ====== TIMER DE DESCANSO (sobrevive bloqueo de pantalla) ====== */

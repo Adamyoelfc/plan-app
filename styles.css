@@ -43,6 +43,8 @@ h1 .thin{display:block;font-weight:600;color:var(--muted);font-size:.4em;letter-
 .tag{font-family:'Archivo',sans-serif;font-weight:800;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:7px}
 .tag.prio{background:var(--prio-soft);color:var(--prio)}
 .tag.core{background:var(--accent-soft);color:var(--accent)}
+.ex-gif{flex:0 0 auto;width:56px;height:56px;border-radius:10px;background:var(--paper);display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer}
+.ex-gif img{max-width:100%;max-height:100%;object-fit:contain}
 .ex-actions{display:flex;flex-direction:column;gap:7px;flex:0 0 auto}
 .btn{text-decoration:none;font-family:'Archivo',sans-serif;font-weight:700;font-size:12.5px;color:var(--ink);border:1.5px solid var(--line);padding:8px 11px;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:5px;background:#fff;cursor:pointer;transition:.15s;white-space:nowrap}
 .btn:active{background:var(--ink);color:#fff;border-color:var(--ink)}
@@ -90,12 +92,9 @@ h1 .thin{display:block;font-weight:600;color:var(--muted);font-size:.4em;letter-
 .empty{color:var(--muted);font-size:13.5px;text-align:center;padding:16px 0}
 footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:30px;line-height:1.7}
 /* gif inline por ejercicio */
-.ex-gif{margin-top:12px;border-radius:12px;background:var(--paper);text-align:center;overflow:hidden}
-.ex-gif img{display:block;max-width:100%;max-height:240px;margin:0 auto;background:#f2f2f0}
-.ex-gif .spinner{width:26px;height:26px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:22px auto}
+.ex-gif .spinner{width:16px;height:16px;border:2.5px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.gif-msg{color:var(--muted);font-size:13.5px;padding:18px 12px}
-.gif-yt{display:inline-flex;margin:0 0 16px;text-decoration:none;font-family:'Archivo',sans-serif;font-weight:700;font-size:13.5px;color:#fff;background:var(--accent);padding:9px 16px;border-radius:11px}
+.gif-yt{color:var(--accent);font-size:20px;line-height:1}
 
 /* ===== marca del día de HOY ===== */
 .tab.today{position:relative}
